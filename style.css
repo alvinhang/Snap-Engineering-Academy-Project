@@ -25,12 +25,14 @@ body {
 }
 
 .card {
-    width: 300px;
+    width: 100%; /* Set card width to fill the grid cell */
+    max-width: 200px; /* Limit card width for better readability */
     border: 1px solid #ccc;
     border-radius: 5px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     margin: 5px;
 }
+
 
 .card-content {
     padding: 20px;
@@ -68,3 +70,14 @@ button {
     cursor: pointer;
     margin: 5px;
 }
+
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr); /* 5 columns */
+    grid-auto-rows: auto; /* Automatically determine the height of each row */
+    grid-auto-flow: row; /* Flow items into multiple rows */
+    gap: 20px; /* Gap between grid items */
+    justify-items: center; /* Center items horizontally */
+    margin: 20px auto; /* Center the grid container */
+}
+

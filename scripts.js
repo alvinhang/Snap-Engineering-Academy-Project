@@ -348,7 +348,7 @@ startButton.addEventListener('click', (event) => {
 function populateAddCarDropdown() {
     const addCarSelect = document.getElementById("add-car");
     addCarSelect.innerHTML = '<option value=""></option>';
-    
+
     Object.values(cars).forEach(brand => {
         brand.forEach(car => {
             const option = document.createElement("option");
@@ -430,6 +430,7 @@ function compareCars() {
                 <p><strong>${car.model}</strong></p>
                 <p><strong>HORSEPOWER:</strong> ${car.horsepower}</p>
                 <p><strong>ENGINE:</strong> ${car.engine}</p>
+                <p><strong>PERFORMANCE:</strong> ${car.performance}</p>
                 <p><strong>EPA ESTIMATES:</strong> ${car.epaEstimates}</p>
             </div>
         `;

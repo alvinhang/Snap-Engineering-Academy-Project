@@ -331,12 +331,10 @@ img {
     max-width: 1200px;
     margin: 0 auto;
 }
-
 /*----------ABOUT STYLING END----------*/
 
 
 /*----------CAR STYLING START----------*/
-/* Initially hide the car options */
 .car-make {
     margin-bottom: 30px;
     display: flex;
@@ -389,13 +387,12 @@ img {
 }
 
 .car-options {
-    display: none;
+    visibility: hidden;
 }
 
 .car-options.show-options {
-    display: flex;
+    visibility: visible;
 }
-
 /*----------CAR STYLING END----------*/
 
 

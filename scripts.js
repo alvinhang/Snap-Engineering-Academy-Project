@@ -347,7 +347,7 @@ startButton.addEventListener('click', (event) => {
 // Dropdown menu for cars
 function populateAddCarDropdown() {
     const addCarSelect = document.getElementById("add-car");
-    addCarSelect.innerHTML = '<option value="">Select a car</option>';
+    addCarSelect.innerHTML = '<option value=""></option>';
     Object.values(cars).forEach(brand => {
         brand.forEach(car => {
             const option = document.createElement("option");

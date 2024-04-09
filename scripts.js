@@ -270,15 +270,6 @@ function updateHomeSection(car) {
 const homeImgElement = document.querySelector('.home__img');
 const homeCarTooltip = document.querySelector('.home__car-tooltip');
 
-homeImgElement.addEventListener('mouseover', () => {
-    homeCarTooltip.style.display = 'block';
-});
-
-homeImgElement.addEventListener('mouseout', () => {
-    homeCarTooltip.style.display = 'none';
-});
-
-// This function shows the car details
 function displayCarOptions() {
     const aboutDataContainer = document.querySelector('.about__container.grid');
 
@@ -319,6 +310,12 @@ function displayCarOptions() {
 
         // appendChild is used to add the carOptionsContainer to the carMakeSection
         carMakeSection.appendChild(carOptionsContainer);
+
+        // Adding click event listener to the carMakeSection itself
+        carMakeSection.addEventListener('click', () => {
+            carOptionsContainer.classList.toggle('show-options');
+        });
+
         // appendChild is used to add the carMakeSection to the aboutDataContainer
         aboutDataContainer.appendChild(carMakeSection);
     }

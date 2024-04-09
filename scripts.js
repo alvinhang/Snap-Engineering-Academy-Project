@@ -306,8 +306,11 @@ function displayCarOptions() {
             // appendChild is used to add the carModel to the carOption
             carOption.appendChild(carModel);
             
+            // Event listener to update car details and move back to home section
             carOption.addEventListener('click', () => {
                 updateHomeSection(car);
+                const targetSection = document.getElementById('home');
+                targetSection.scrollIntoView({ behavior: 'smooth' });
             });
 
             // appendChild is used to add the carOption to the carOptionsContainer

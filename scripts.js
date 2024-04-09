@@ -270,14 +270,6 @@ function updateHomeSection(car) {
 const homeImgElement = document.querySelector('.home__img');
 const homeCarTooltip = document.querySelector('.home__car-tooltip');
 
-homeImgElement.addEventListener('mouseover', () => {
-    homeCarTooltip.style.display = 'block';
-});
-
-homeImgElement.addEventListener('mouseout', () => {
-    homeCarTooltip.style.display = 'none';
-});
-
 // This function shows the car details
 function displayCarOptions() {
     const aboutDataContainer = document.querySelector('.about__container.grid');

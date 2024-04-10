@@ -98,22 +98,6 @@ img {
 }
 
 /*----------HOME SECTION STYLING START----------*/
-.shape {
-    background-color: hsla(0, 0%, 100%, .1);
-    filter: blur(112px);
-    border-radius: 50%;
-}
-
-.shape__big {
-    width: 400px;
-    height: 400px;
-}
-
-.shape__small {
-    width: 300px;
-    height: 300px;
-}
-
 .header {
     width: 100%;
     background-color: transparent;

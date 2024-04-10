@@ -113,31 +113,31 @@ const cars = {
     ],
     "Mercedes": [
         {
-            model: "Mercedes-AMG C 63 S Coupe",
-            description: "The Mercedes-AMG C 63 S Coupe is a high-performance machine that boasts a 4.0-liter V8 biturbo engine that produces 503 hp and 516 lb-ft of torque.",
+            model: "Mercedes AMG C 63 S Coupe",
+            description: "The Mercedes AMG C 63 S Coupe is a high-performance machine that boasts a 4.0-liter V8 biturbo engine that produces 503 hp and 516 lb-ft of torque.",
             engine: "4.0L V8 biturbo engine",
             performance: "0-60 mph in 3.7 seconds",
             horsepower: "503 hp",
             epaEstimates: "16 city / 24 highway",
-            imageSrc: "img/mercedes/c63.png"
+            imageSrc: "img/mercedes/mercedes-c63.png"
         },
         {
-            model: "Mercedes-AMG E 63 S Sedan",
-            description: "The Mercedes-AMG E 63 S Sedan is a high-performance machine that boasts a 4.0-liter V8 biturbo engine that produces 603 hp and 627 lb-ft of torque.",
+            model: "Mercedes AMG E 63 S Sedan",
+            description: "The Mercedes AMG E 63 S Sedan is a high-performance machine that boasts a 4.0-liter V8 biturbo engine that produces 603 hp and 627 lb-ft of torque.",
             engine: "4.0L V8 biturbo engine",
             performance: "0-60 mph in 3.0 seconds",
             horsepower: "603 hp",
             epaEstimates: "16 city / 23 highway",
-            imageSrc: "img/mercedes/e63.png"
+            imageSrc: "img/mercedes/mercedes-e63.png"
         },
         {
-            model: "Mercedes-AMG GT Coupe",
-            description: "The Mercedes-AMG GT Coupe is a high-performance machine that boasts a 4.0-liter V8 biturbo engine that produces 577 hp and 590 lb-ft of torque.",
+            model: "Mercedes AMG GT Coupe",
+            description: "The Mercedes AMG GT Coupe is a high-performance machine that boasts a 4.0-liter V8 biturbo engine that produces 577 hp and 590 lb-ft of torque.",
             engine: "4.0L V8 biturbo engine",
             performance: "0-60 mph in 3.1 seconds",
             horsepower: "577 hp",
             epaEstimates: "15 city / 20 highway",
-            imageSrc: "img/mercedes/gt.png"
+            imageSrc: "img/mercedes/mercedes-gt.png"
         }
     ],
     "Porsche": [
@@ -347,7 +347,15 @@ startButton.addEventListener('click', (event) => {
 // Dropdown menu for cars
 function populateAddCarDropdown() {
     const addCarSelect = document.getElementById("add-car");
-    addCarSelect.innerHTML = '<option value=""></option>';
+    
+    // This clears the dropdown
+    while (addCarSelect.firstChild) {
+        addCarSelect.removeChild(addCarSelect.firstChild);
+    }
+
+    const defaultOption = document.createElement("option");
+    defaultOption.value = "";
+    addCarSelect.appendChild(defaultOption);
 
     Object.values(cars).forEach(brand => {
         brand.forEach(car => {
@@ -386,19 +394,21 @@ function addCarToComparison(model) {
         const comparisonContainer = document.getElementById("comparison-container");
         const carCard = document.createElement("div");
         carCard.classList.add("car-card");
-        carCard.innerHTML = `
-            <p>${car.model}</p>
-            <button class="remove-car">Remove</button>
-        `;
-        comparisonContainer.appendChild(carCard);
 
-        const removeButton = carCard.querySelector(".remove-car");
+        const carModelParagraph = document.createElement("p");
+        carModelParagraph.textContent = car.model;
+
+        const removeButton = document.createElement("button");
+        removeButton.textContent = "Remove";
+        removeButton.classList.add("remove-car");
         removeButton.addEventListener("click", () => {
             carCard.remove();
             populateRemoveCarDropdown();
         });
-    } else {
-        console.log(`Car "${model}" not found.`);
+
+        carCard.appendChild(carModelParagraph);
+        carCard.appendChild(removeButton);
+        comparisonContainer.appendChild(carCard);
     }
 }
 
@@ -407,10 +417,15 @@ function compareCars() {
     const selectedCars = document.querySelectorAll(".car-card");
     const comparisonContainer = document.getElementById("comparison-container");
 
-    comparisonContainer.innerHTML = "";
+    // This clears the comparison
+    while (comparisonContainer.firstChild) {
+        comparisonContainer.removeChild(comparisonContainer.firstChild);
+    }
 
     if (selectedCars.length < 2) {
-        comparisonContainer.innerHTML = "<p>Please select at least two cars to compare.</p>";
+        const message = document.createElement("p");
+        message.textContent = "Please select at least two cars to compare.";
+        comparisonContainer.appendChild(message);
         return;
     }
 
@@ -421,19 +436,41 @@ function compareCars() {
         return cars[brand].find(car => car.model === model);
     });
 
-    // Displays the comparison details
-    comparisonContainer.innerHTML += "<h3>Comparison Details</h3>";
+    // Creates the comparison details
+    const comparisonHeader = document.createElement("h3");
+    comparisonHeader.textContent = "Comparison Details";
+    comparisonContainer.appendChild(comparisonHeader);
+
     comparisonDetails.forEach(car => {
-        comparisonContainer.innerHTML += `
-            <div class="comparison-details">
-                <img src="${car.imageSrc}" alt="${car.model}">
-                <p><strong>${car.model}</strong></p>
-                <p><strong>HORSEPOWER:</strong> ${car.horsepower}</p>
-                <p><strong>ENGINE:</strong> ${car.engine}</p>
-                <p><strong>PERFORMANCE:</strong> ${car.performance}</p>
-                <p><strong>EPA ESTIMATES:</strong> ${car.epaEstimates}</p>
-            </div>
-        `;
+        const detailsContainer = document.createElement("div");
+        detailsContainer.classList.add("comparison-details");
+
+        const carImage = document.createElement("img");
+        carImage.src = car.imageSrc;
+        carImage.alt = car.model;
+        detailsContainer.appendChild(carImage);
+
+        const carModelParagraph = document.createElement("p");
+        carModelParagraph.innerHTML = `<strong>${car.model}</strong>`;
+        detailsContainer.appendChild(carModelParagraph);
+
+        const horsepowerParagraph = document.createElement("p");
+        horsepowerParagraph.innerHTML = `<strong>HORSEPOWER:</strong> ${car.horsepower}`;
+        detailsContainer.appendChild(horsepowerParagraph);
+
+        const engineParagraph = document.createElement("p");
+        engineParagraph.innerHTML = `<strong>ENGINE:</strong> ${car.engine}`;
+        detailsContainer.appendChild(engineParagraph);
+
+        const performanceParagraph = document.createElement("p");
+        performanceParagraph.innerHTML = `<strong>PERFORMANCE:</strong> ${car.performance}`;
+        detailsContainer.appendChild(performanceParagraph);
+
+        const epaEstimatesParagraph = document.createElement("p");
+        epaEstimatesParagraph.innerHTML = `<strong>EPA ESTIMATES:</strong> ${car.epaEstimates}`;
+        detailsContainer.appendChild(epaEstimatesParagraph);
+
+        comparisonContainer.appendChild(detailsContainer);
     });
 }
 
